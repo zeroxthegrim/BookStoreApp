@@ -1,0 +1,91 @@
+﻿<style>
+    .deleteBtn {
+        border: none;
+        background-color: white;
+        color: #337ab7;
+    }
+
+    .deleteBtn:hover {
+        text-decoration: underline;
+        color: #23527c;
+    }
+
+    .radio-btn-text {
+        margin-right: 20px;
+    }
+
+    input[type="radio"] {
+        
+    }
+
+    .radio-label-left {
+        display: inline-block;
+        margin-right: 20px;
+        margin-bottom: 15px;
+    }
+</style>
+
+
+
+@model IEnumerable<BookstoreApp.Models.BookModel>
+
+@{
+    ViewBag.Title = "List of Available Books";
+}
+
+<h2>Available books</h2>
+
+<p>
+    @Html.ActionLink("Create New", "AddNew", "Home")
+</p>
+<p>
+    @using (Html.BeginForm("ViewBooks", "Home", FormMethod.Get))
+     {
+        <b>Search By:</b> @Html.RadioButton("searchBy", "BookName", true) <div class="radio-label-left">Book Name</div>
+            @Html.RadioButton("searchBy", "WriterName") <text>Writer's Name</text><br />
+            @Html.TextBox("search") <input type="submit" value="Search" />
+     }
+  
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BookName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WriterName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Genre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReleaseYear)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BookName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WriterName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Genre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReleaseYear)
+        </td>
+        <td>
+            @*Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+            @using (Html.BeginForm("Delete", "Home", new { bookName = item.BookName }))
+            {
+                <input type="submit" value="Delete" class="deleteBtn" onclick="return confirm('Are you sure you want to delete book @item.BookName');"/>
+            }
+        </td>
+    </tr>
+}
+
+</table>
