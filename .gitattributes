@@ -34,8 +34,8 @@
 #*.modelproj merge=binary
 #*.sqlproj   merge=binary
 #*.wwaproj   merge=binary
-* linguist-vendored
-*.js linguist-vendored=false
+#* linguist-vendored
+#*.js linguist-vendored=false
 
 ###############################################################################
 # behavior for image files
